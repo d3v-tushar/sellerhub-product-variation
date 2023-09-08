@@ -10,7 +10,7 @@ function App() {
   const [showSelectedAttributes, setShowSelectedAttributes] = useState(false);
   return (
     <div>
-      {/* {!showSelectedAttributes ? (
+      {!showSelectedAttributes ? (
         <CreateVariation
           attributes={attributes}
           setAttributes={setAttributes}
@@ -19,7 +19,7 @@ function App() {
       ) : (
         <SelectedAttributeOptions attributes={attributes} />
       )}
-      <AddProductProtos /> */}
+      <AddProductProtos />
       <VariationPhotos />
     </div>
   );
