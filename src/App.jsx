@@ -1,12 +1,26 @@
+import { useState } from "react";
 import "./App.css";
+import SelectedAttributeOptions from "./components/SelectedAttributeOptions";
 import CreateVariation from "./pages/CreateVariation";
-import Demo from "./pages/Demo";
+import AddProductProtos from "./components/AddProductProtos";
+//import VariationPhotos from "./components/VariationPhotos";
 
 function App() {
+  const [attributes, setAttributes] = useState([]);
+  const [showSelectedAttributes, setShowSelectedAttributes] = useState(false);
   return (
     <div>
-      <CreateVariation />
-      {/* <Demo /> */}
+      {!showSelectedAttributes ? (
+        <CreateVariation
+          attributes={attributes}
+          setAttributes={setAttributes}
+          setShowSelectedAttributes={setShowSelectedAttributes}
+        />
+      ) : (
+        <SelectedAttributeOptions attributes={attributes} />
+      )}
+      <AddProductProtos />
+      {/* <VariationPhotos /> */}
     </div>
   );
 }
