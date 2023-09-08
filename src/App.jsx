@@ -3,14 +3,14 @@ import "./App.css";
 import SelectedAttributeOptions from "./components/SelectedAttributeOptions";
 import CreateVariation from "./pages/CreateVariation";
 import AddProductProtos from "./components/AddProductProtos";
-//import VariationPhotos from "./components/VariationPhotos";
+import VariationPhotos from "./components/VariationPhotos";
 
 function App() {
   const [attributes, setAttributes] = useState([]);
   const [showSelectedAttributes, setShowSelectedAttributes] = useState(false);
   return (
     <div>
-      {!showSelectedAttributes ? (
+      {/* {!showSelectedAttributes ? (
         <CreateVariation
           attributes={attributes}
           setAttributes={setAttributes}
@@ -19,8 +19,8 @@ function App() {
       ) : (
         <SelectedAttributeOptions attributes={attributes} />
       )}
-      <AddProductProtos />
-      {/* <VariationPhotos /> */}
+      <AddProductProtos /> */}
+      <VariationPhotos />
     </div>
   );
 }
