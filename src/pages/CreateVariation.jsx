@@ -24,7 +24,9 @@ const CreateVariation = ({
 
   const addOption = (attrIndex, event) => {
     const updatedAttributes = [...attributes];
-    updatedAttributes[attrIndex].options.push(event.target.value.toLowerCase());
+    updatedAttributes[attrIndex].options.push({
+      name: event.target.value.toLowerCase(),
+    });
     setAttributes(updatedAttributes);
     event.target.value = "";
   };
@@ -40,7 +42,6 @@ const CreateVariation = ({
     else window.alert("No Variations Selected");
   };
 
-  console.log(attributes);
   return (
     <div className="w-11/12 mx-auto">
       <h2 className="text-lg font-semibold text-gray-700 capitalize">
@@ -68,13 +69,13 @@ const CreateVariation = ({
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
                         viewBox="0 0 24 24"
-                        stroke-width="1.5"
+                        strokeWidth="1.5"
                         stroke="currentColor"
-                        class="w-6 h-6 text-gray-600"
+                        className="w-6 h-6 text-gray-600"
                       >
                         <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
                           d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
                         />
                       </svg>
@@ -139,8 +140,8 @@ const CreateVariation = ({
                         key={optionIndex}
                         className="px-3 py-1 border rounded-md flex"
                       >
-                        <span className="text-base mr-2">{option}</span>
-
+                        <span className="text-base mr-2">{option.name}</span>
+                        {/* Here, update to option.name */}
                         <button
                           onClick={() => removeOption(index, optionIndex)}
                         >
@@ -148,19 +149,20 @@ const CreateVariation = ({
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
                             viewBox="0 0 24 24"
-                            stroke-width="1.5"
+                            strokeWidth="1.5"
                             stroke="currentColor"
-                            class="w-6 h-6 text-gray-600"
+                            className="w-6 h-6 text-gray-600"
                           >
                             <path
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
                               d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
                             />
                           </svg>
                         </button>
                       </div>
                     ))}
+
                     <div className="relative border rounded-md">
                       <details className="group w-full mx-4 my-1">
                         <summary className="flex cursor-pointer items-center gap-2 border-gray-400 pb-1 text-gray-900 transition hover:border-gray-600">
@@ -214,8 +216,7 @@ const CreateVariation = ({
       <div className="flex gap-2">
         <button
           onClick={handleContinue}
-          className="inline-block rounded border border-indigo-600 bg-blue-600 px-12 py-2 text-sm font-medium text-white hover:bg-transparent hover:bg-blue-500 focus:outline-none focus:ring active:text-blue-500"
-          href="/download"
+          className="inline-block rounded border border-indigo-600 bg-blue-600 px-12 py-2 text-sm font-medium text-white hover:bg-blue-500 focus:outline-none focus:ring active:text-blue-500"
         >
           Continue
         </button>
