@@ -1,25 +1,25 @@
 import { useState } from "react";
 
 const VariationPhotos = ({ attributes }) => {
-  // Your attributes data
-  //   const attributes = [
-  //     {
-  //       attribute: "color",
-  //       options: [
-  //         { name: "green", images: [] },
-  //         { name: "yellow", images: [] },
-  //         { name: "blue", images: [] },
-  //       ],
-  //     },
-  //     {
-  //       attribute: "size",
-  //       options: [
-  //         { name: "s", images: [] },
-  //         { name: "m", images: [] },
-  //         { name: "l", images: [] },
-  //       ],
-  //     },
-  //   ];
+  //   Your attributes data
+  //     const attributes = [
+  //       {
+  //         attribute: "color",
+  //         options: [
+  //           { name: "green", images: [] },
+  //           { name: "yellow", images: [] },
+  //           { name: "blue", images: [] },
+  //         ],
+  //       },
+  //       {
+  //         attribute: "size",
+  //         options: [
+  //           { name: "s", images: [] },
+  //           { name: "m", images: [] },
+  //           { name: "l", images: [] },
+  //         ],
+  //       },
+  //     ];
   // Set the initial selected attribute and option
   const [selectedImages, setSelectedImages] = useState({});
   const [selectedAttribute, setSelectedAttribute] = useState("default");
@@ -102,7 +102,7 @@ const VariationPhotos = ({ attributes }) => {
           <option value="default">Use Default Photos</option>
           {attributes.map((attribute, index) => (
             <option
-              className="capitalize"
+              className="capitalize cursor-pointer"
               key={index}
               value={attribute.attribute}
             >

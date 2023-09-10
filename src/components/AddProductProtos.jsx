@@ -24,16 +24,19 @@ const AddProductProtos = () => {
   };
 
   return (
-    <div className="w-11/12 mx-auto my-4 grid grid-cols-3">
+    <div className="w-11/12 mx-auto my-4 grid grid-cols-1 lg:grid-cols-3">
       <div className="border">
-        <span className="arrow">
-          Default Photos {`(${selectedImages.length}/12 Photos)`}
-        </span>
+        <label className="flex cursor-pointer bg-sky-300 items-center justify-between border-b p-4 text-sm font-medium">
+          <p className="text-gray-700 capitalize">Default Photos</p>
+          <p className="text-gray-900">
+            {`(${selectedImages.length}/12 Photos)`}
+          </p>
+        </label>
       </div>
       <div className="flex justify-center items-center border-t border-b">
         <label
           htmlFor="dropzone-file"
-          className="flex flex-col items-center w-10/12 max-w-lg p-5 mx-auto mt-2 text-center bg-white border-2 border-gray-300 border-dashed cursor-pointer dark:bg-gray-900 dark:border-gray-700 rounded-xl"
+          className="flex flex-col items-center w-10/12 p-5 mx-auto my-8 text-center bg-white border-2 border-gray-300 border-dashed cursor-pointer rounded-xl"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
