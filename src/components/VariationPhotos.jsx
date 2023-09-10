@@ -40,7 +40,6 @@ const VariationPhotos = ({ attributes }) => {
   // Function to handle file selection for the selected option
   const handleVariationFileSelect = (event) => {
     const files = event.target.files;
-    const newImages = [];
 
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
@@ -49,33 +48,42 @@ const VariationPhotos = ({ attributes }) => {
         const reader = new FileReader();
 
         reader.onload = (e) => {
-          newImages.push(e.target.result);
+          const imageData = e.target.result;
 
-          // Update the selectedImages state for the specific option
-          setSelectedImages((prevSelectedImages) => ({
-            ...prevSelectedImages,
-            [`${selectedAttribute}-${selectedOption}`]: [
-              ...(prevSelectedImages[
-                `${selectedAttribute}-${selectedOption}`
-              ] || []),
-              ...newImages,
-            ],
-          }));
+          // Ensure you have a selectedAttribute and selectedOption before updating state
+          if (selectedAttribute && selectedOption) {
+            setSelectedImages((prevSelectedImages) => ({
+              ...prevSelectedImages,
+              [`${selectedAttribute}-${selectedOption}`]: [
+                ...(prevSelectedImages[
+                  `${selectedAttribute}-${selectedOption}`
+                ] || []),
+                imageData,
+              ],
+            }));
 
-          // Update the images array for the selected option
-          const selectedAttributeData = attributes.find(
-            (attribute) => attribute.attribute === selectedAttribute
-          );
-          if (selectedAttributeData) {
-            const selectedOptionData = selectedAttributeData.options.find(
-              (option) => option.name === selectedOption
-            );
-            if (selectedOptionData) {
-              selectedOptionData.images = [
-                ...selectedOptionData.images,
-                ...newImages,
-              ];
-            }
+            // Update the images array for the selected option in attributes
+            const updatedAttributes = attributes.map((attribute) => {
+              if (attribute.attribute === selectedAttribute) {
+                const updatedOptions = attribute.options.map((option) => {
+                  if (option.name === selectedOption) {
+                    return {
+                      ...option,
+                      images: [...(option.images || []), imageData],
+                    };
+                  }
+                  return option;
+                });
+                return {
+                  ...attribute,
+                  options: updatedOptions,
+                };
+              }
+              return attribute;
+            });
+
+            // Set the updated attributes
+            setAttributes(updatedAttributes);
           }
         };
 
@@ -187,6 +195,7 @@ const VariationPhotos = ({ attributes }) => {
               multiple
               accept="image/*"
               onChange={handleVariationFileSelect}
+              disabled={!selectedOption.length}
             />
           </label>
         </div>
@@ -205,18 +214,9 @@ const VariationPhotos = ({ attributes }) => {
               multiple
               accept="image/*"
               onChange={handleVariationFileSelect}
+              disabled={!selectedOption.length}
             />
           </label>
-          {images.length < 12
-            ? [...Array(11 - images.length)].map((_, index) => (
-                <img
-                  key={index}
-                  className="aspect-square"
-                  src="https://cobblestone.me/wp-content/plugins/photonic/include/images/placeholder-Sm.png"
-                  alt={`Placeholder ${index + 1}`}
-                />
-              ))
-            : null}
           {images.length
             ? images.map((src, index) => (
                 <img
@@ -224,6 +224,16 @@ const VariationPhotos = ({ attributes }) => {
                   src={src}
                   alt={`Selected ${index + 1}`}
                   className="aspect-square"
+                />
+              ))
+            : null}
+          {images.length < 12
+            ? [...Array(11 - images.length)].map((_, index) => (
+                <img
+                  key={index}
+                  className="aspect-square"
+                  src="https://cobblestone.me/wp-content/plugins/photonic/include/images/placeholder-Sm.png"
+                  alt={`Placeholder ${index + 1}`}
                 />
               ))
             : null}

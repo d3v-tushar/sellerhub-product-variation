@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
+import toast from "react-hot-toast";
 
 const VariationsTable = ({ attributes }) => {
   const [variations, setVariations] = useState([]);
@@ -154,16 +155,74 @@ const VariationsTable = ({ attributes }) => {
   };
 
   // Placeholder function to handle entering price
-  const handleEnterPrice = (value) => {
-    const updatedVariationData = variationData.map((variation) => {
-      if (selected.includes(variation.id)) {
-        return { ...variation, price: value };
-      }
-      return variation;
-    });
+  const handleEnterPrice = (event) => {
+    if (selected.length) {
+      const updatedVariationData = variationData.map((variation) => {
+        if (selected.includes(variation.id)) {
+          return { ...variation, price: event.target.value };
+        }
+        return variation;
+      });
 
-    setVariationData(updatedVariationData);
+      setVariationData(updatedVariationData);
+      event.target.value = "";
+    } else {
+      toast.error("Oops! Nothing Selected");
+    }
   };
+
+  // Placeholder function to handle entering quantity
+  const handleEnterQuantity = (event) => {
+    if (selected.length) {
+      const updatedVariationData = variationData.map((variation) => {
+        if (selected.includes(variation.id)) {
+          return { ...variation, quantity: event.target.value };
+        }
+        return variation;
+      });
+      setVariationData(updatedVariationData);
+      event.target.value = "";
+    } else {
+      toast.error("Oops! Nothing Selected");
+    }
+  };
+
+  // Placeholder function to handle entering sku
+  const handleEnterSKU = (event) => {
+    if (selected.length) {
+      const updatedVariationData = variationData.map((variation) => {
+        if (selected.includes(variation.id)) {
+          return { ...variation, sku: event.target.value };
+        }
+        return variation;
+      });
+      setVariationData(updatedVariationData);
+      event.target.value = "";
+    } else {
+      toast.error("Oops! Nothing Selected");
+    }
+  };
+
+  // Placeholder function to handle deleting selected
+  const handleDeleteSelected = () => {
+    if (selected.length) {
+      // Filter out the selected variations
+      const updatedVariationData = variationData.filter(
+        (variation) => !variation.select
+      );
+
+      // Update the state with the new variationData
+      setVariationData(updatedVariationData);
+
+      // Deselect all variations
+      setSelected([]);
+    } else {
+      toast.error("Oops! Nothing Selected");
+    }
+  };
+
+  console.log(selected);
+  console.log(variationData);
 
   return (
     <div className="w-11/12 mx-auto my-8">
@@ -171,7 +230,7 @@ const VariationsTable = ({ attributes }) => {
         {`Variation Combinations (${numVariations})`}
       </h2>
       <div className="flex gap-2 my-2">
-        <div className="relative border rounded-md flex items-center">
+        <div className="relative border rounded-sm flex items-center">
           <details className="group w-full mx-4 my-1">
             <summary className="flex cursor-pointer items-center gap-2 border-gray-400 pb-1 text-gray-900 transition hover:border-gray-600">
               <span className="text-sm font-medium text-blue-800">
@@ -194,8 +253,41 @@ const VariationsTable = ({ attributes }) => {
                       id="CreateYourOwn"
                       placeholder="Press Enter To Add"
                       onKeyUp={(event) =>
+                        event.key === "Enter" ? handleEnterPrice(event) : null
+                      }
+                      className="px-2 border rounded-md border-gray-200"
+                    />
+                  </div>
+                </label>
+              </div>
+            </div>
+          </details>
+        </div>
+        <div className="relative border rounded-sm flex items-center">
+          <details className="group w-full mx-4 my-1">
+            <summary className="flex cursor-pointer items-center gap-2 border-gray-400 pb-1 text-gray-900 transition hover:border-gray-600">
+              <span className="text-sm font-medium text-blue-800">
+                Enter Quantity
+              </span>
+            </summary>
+
+            <div className="z-50 group-open:absolute shadow-lg group-open:top-auto group-open:left-0 group-open:mt-2 ltr:group-open:start-0">
+              <div className="w-60 rounded border border-gray-200 bg-white p-4">
+                <label
+                  htmlFor="CreateYourOwn"
+                  className="grid items-center gap-2"
+                >
+                  <span className="text-sm font-medium text-gray-700">
+                    Enter Quantity For Selected
+                  </span>
+                  <div className="flex gap-2">
+                    <input
+                      type="text"
+                      id="CreateYourOwn"
+                      placeholder="Press Enter To Add"
+                      onKeyUp={(event) =>
                         event.key === "Enter"
-                          ? handleEnterPrice(event.target.value)
+                          ? handleEnterQuantity(event)
                           : null
                       }
                       className="px-2 border rounded-md border-gray-200"
@@ -206,21 +298,43 @@ const VariationsTable = ({ attributes }) => {
             </div>
           </details>
         </div>
+        <div className="relative border rounded-sm flex items-center">
+          <details className="group w-full mx-4 my-1">
+            <summary className="flex cursor-pointer items-center gap-2 border-gray-400 pb-1 text-gray-900 transition hover:border-gray-600">
+              <span className="text-sm font-medium text-blue-800">
+                Enter SKU
+              </span>
+            </summary>
+
+            <div className="z-50 group-open:absolute shadow-lg group-open:top-auto group-open:left-0 group-open:mt-2 ltr:group-open:start-0">
+              <div className="w-60 rounded border border-gray-200 bg-white p-4">
+                <label
+                  htmlFor="CreateYourOwn"
+                  className="grid items-center gap-2"
+                >
+                  <span className="text-sm font-medium text-gray-700">
+                    Enter SKU For Selected
+                  </span>
+                  <div className="flex gap-2">
+                    <input
+                      type="text"
+                      id="CreateYourOwn"
+                      placeholder="Press Enter To Add"
+                      onKeyUp={(event) =>
+                        event.key === "Enter" ? handleEnterSKU(event) : null
+                      }
+                      className="px-2 border rounded-md border-gray-200"
+                    />
+                  </div>
+                </label>
+              </div>
+            </div>
+          </details>
+        </div>
+
         <button
-          //   onClick={() => handleEnterQuantity(variation.id)}
-          className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
-        >
-          Enter Quantity
-        </button>
-        <button
-          //   onClick={() => handleEnterSKU(variation.id)}
-          className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded"
-        >
-          Enter SKU
-        </button>
-        <button
-          //   onClick={() => handleDeleteVariations(variation.id)}
-          className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded"
+          onClick={handleDeleteSelected}
+          className="hover:bg-red-600 hover:text-white text-sm font-medium text-blue-800 py-2 px-4 border rounded-sm"
         >
           Delete
         </button>
@@ -245,12 +359,12 @@ const VariationsTable = ({ attributes }) => {
         </thead>
 
         <tbody>
-          {variationData.map((variation) => (
-            <tr key={variation.id}>
+          {variationData.map((variation, index) => (
+            <tr key={index}>
               <td className="border border-gray-300 px-4 py-2">
                 <input
                   type="checkbox"
-                  checked={variation.select}
+                  checked={variation.select || selected.includes(variation.id)}
                   onChange={() => handleToggleSelect(variation.id)}
                 />
               </td>
@@ -292,9 +406,12 @@ const VariationsTable = ({ attributes }) => {
                   key={attrIndex}
                   className="border border-gray-300 px-4 py-2 capitalize"
                 >
-                  {attrIndex === 0
-                    ? variation.variationNameOptions[attrIndex]
-                    : variation.variationNameOptions[attrIndex]}
+                  {/* {attrIndex === 0
+                    ? variation?.variationNameOptions[attrIndex]
+                    : variation?.variationNameOptions[attrIndex]} */}
+                  {variation &&
+                    variation.variationNameOptions &&
+                    variation.variationNameOptions[attrIndex]}
                 </td>
               ))}
 

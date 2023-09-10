@@ -41,7 +41,7 @@ const SelectedAttributeOptions = ({
               <dt className="font-medium text-gray-900 border-r capitalize">
                 {attr.attribute}
               </dt>
-              <dd className="text-gray-700 sm:col-span-2">
+              <dd className="text-gray-700 sm:col-span-2 capitalize">
                 {attr.options.map((option) => option.name).join(", ")}
               </dd>
             </div>

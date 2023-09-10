@@ -1,4 +1,5 @@
 /* eslint-disable react/prop-types */
+import toast from "react-hot-toast";
 
 const CreateVariation = ({
   attributes,
@@ -39,7 +40,7 @@ const CreateVariation = ({
 
   const handleContinue = () => {
     if (Object.keys(attributes).length) setShowSelectedAttributes(true);
-    else window.alert("No Variations Selected");
+    else toast.error("Oops! No Variation Found");
   };
 
   return (
@@ -140,7 +141,9 @@ const CreateVariation = ({
                         key={optionIndex}
                         className="px-3 py-1 border rounded-md flex"
                       >
-                        <span className="text-base mr-2">{option.name}</span>
+                        <span className="text-base mr-2 capitalize">
+                          {option.name}
+                        </span>
                         {/* Here, update to option.name */}
                         <button
                           onClick={() => removeOption(index, optionIndex)}
@@ -216,7 +219,7 @@ const CreateVariation = ({
       <div className="flex gap-2">
         <button
           onClick={handleContinue}
-          className="inline-block rounded border border-indigo-600 bg-blue-600 px-12 py-2 text-sm font-medium text-white hover:bg-blue-500 focus:outline-none focus:ring active:text-blue-500"
+          className="inline-block rounded border border-indigo-600 bg-blue-600 px-12 py-2 text-sm font-medium text-white hover:bg-blue-500 focus:outline-none"
         >
           Continue
         </button>
