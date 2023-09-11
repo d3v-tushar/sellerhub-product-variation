@@ -26,7 +26,10 @@ function App() {
       <AddProductProtos />
       {Object.keys(attributes) && showSelectedAttributes ? (
         <>
-          <VariationPhotos attributes={attributes} />
+          <VariationPhotos
+            attributes={attributes}
+            setAttributes={setAttributes}
+          />
           <VariationsTable attributes={attributes} />
         </>
       ) : null}

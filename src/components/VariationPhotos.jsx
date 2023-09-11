@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const VariationPhotos = ({ attributes }) => {
+const VariationPhotos = ({ attributes, setAttributes }) => {
   //   Your attributes data
   //     const attributes = [
   //       {
@@ -52,15 +52,13 @@ const VariationPhotos = ({ attributes }) => {
 
           // Ensure you have a selectedAttribute and selectedOption before updating state
           if (selectedAttribute && selectedOption) {
-            setSelectedImages((prevSelectedImages) => ({
-              ...prevSelectedImages,
-              [`${selectedAttribute}-${selectedOption}`]: [
-                ...(prevSelectedImages[
-                  `${selectedAttribute}-${selectedOption}`
-                ] || []),
-                imageData,
-              ],
-            }));
+            setSelectedImages((prevSelectedImages) => {
+              const key = `${selectedAttribute}-${selectedOption}`;
+              return {
+                ...prevSelectedImages,
+                [key]: [...(prevSelectedImages[key] || []), imageData],
+              };
+            });
 
             // Update the images array for the selected option in attributes
             const updatedAttributes = attributes.map((attribute) => {
@@ -97,14 +95,16 @@ const VariationPhotos = ({ attributes }) => {
     return (
       <div className="mb-4 flex flex-col w-11/12 mx-auto">
         <label
-          className="text-base font-medium text-gray-700"
+          className="text-base font-light text-ellipsis text-gray-700 my-2"
           htmlFor="attribute-select"
         >
-          Variation Images
+          Variation Images <br />
+          Change photos in your listing based on this attribute. This determines
+          which photos buyer see when they select a variation option
         </label>
         <select
           id="attribute-select"
-          className="p-1 border-2 border-gray-300 w-fit rounded-md capitalize"
+          className="p-1 border border-gray-300 w-fit rounded-sm focus:outline-none capitalize"
           onChange={(e) => setSelectedAttribute(e.target.value)}
         >
           <option value="default">Use Default Photos</option>
@@ -130,6 +130,7 @@ const VariationPhotos = ({ attributes }) => {
   const renderSelectedImages = () => {
     const images =
       selectedImages[`${selectedAttribute}-${selectedOption}`] || [];
+    const totalImages = images.length;
 
     return (
       <div className="w-11/12 mx-auto my-4 grid grid-cols-1 lg:grid-cols-3 divide-x divide-y border">
@@ -154,7 +155,7 @@ const VariationPhotos = ({ attributes }) => {
                     className="flex cursor-pointer items-center justify-between border-b bg-white p-4 text-sm font-medium peer-checked:bg-blue-300 peer-checked:ring-1 peer-checked:text-white"
                   >
                     <p className="text-gray-700 capitalize">{option.name}</p>
-                    <p className="text-gray-900">{`(0/12) Photos`}</p>
+                    <p className="text-gray-900">{`(${totalImages}/12) Photos`}</p>
                   </label>
                 </div>
               ))}
@@ -241,6 +242,8 @@ const VariationPhotos = ({ attributes }) => {
       </div>
     );
   };
+
+  console.log(attributes);
 
   return (
     <div className="mx-auto my-4">

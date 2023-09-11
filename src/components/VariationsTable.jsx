@@ -221,8 +221,9 @@ const VariationsTable = ({ attributes }) => {
     }
   };
 
-  console.log(selected);
-  console.log(variationData);
+  const handleSave = () => {
+    console.log(variations);
+  };
 
   return (
     <div className="w-11/12 mx-auto my-8">
@@ -339,7 +340,7 @@ const VariationsTable = ({ attributes }) => {
           Delete
         </button>
       </div>
-      <table className="min-w-full border-collapse border border-gray-300">
+      <table className="min-w-full border-collapse border text-center border-gray-300">
         <thead>
           <tr>
             {tableHeaders.map((header) => (
@@ -371,7 +372,7 @@ const VariationsTable = ({ attributes }) => {
               <td className="border border-gray-300 px-4 py-2">
                 <button
                   onClick={() => handleDeleteVariations(variation.id)}
-                  className="text-blue-800 font-bold"
+                  className="text-blue-800 text-sm font-semibold"
                 >
                   Delete
                 </button>
@@ -443,6 +444,17 @@ const VariationsTable = ({ attributes }) => {
           ))}
         </tbody>
       </table>
+      <div className="flex gap-2 my-2">
+        <button
+          onClick={handleSave}
+          className="inline-block border border-indigo-600 bg-blue-600 px-12 py-2 text-sm font-medium text-white hover:bg-blue-500 focus:outline-none"
+        >
+          Save
+        </button>
+        <button className="inline-block border border-indigo-600 px-12 py-2 text-sm font-medium text-blue-600 hover:bg-transparent focus:outline-none focus:ring active:text-blue-500">
+          Cancel
+        </button>
+      </div>
     </div>
   );
 };
