@@ -51,7 +51,7 @@ const AddProductProtos = () => {
   };
 
   return (
-    <div className="my-4 flex flex-col w-11/12 mx-auto">
+    <div className="my-4 flex flex-col">
       <label
         className="text-base font-light text-ellipsis text-gray-700 my-2"
         htmlFor="attribute-select"
@@ -110,7 +110,7 @@ const AddProductProtos = () => {
           {selectedImages.length !== 12 && (
             <label
               htmlFor="add-photos"
-              className="flex justify-center items-center"
+              className="flex justify-center items-center border-t border-l"
             >
               <span className="text-sm font-medium text-blue-800 cursor-pointer">
                 + Add Photos

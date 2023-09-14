@@ -93,7 +93,7 @@ const VariationPhotos = ({ attributes, setAttributes }) => {
   // Function to render select menu with attribute options
   const renderAttributeSelect = () => {
     return (
-      <div className="mb-4 flex flex-col w-11/12 mx-auto">
+      <div className="mb-4 flex flex-col">
         <label
           className="text-base font-light text-ellipsis text-gray-700 my-2"
           htmlFor="attribute-select"
@@ -133,7 +133,7 @@ const VariationPhotos = ({ attributes, setAttributes }) => {
     const totalImages = images.length;
 
     return (
-      <div className="w-11/12 mx-auto my-4 grid grid-cols-1 lg:grid-cols-3 divide-x divide-y border">
+      <div className="my-4 grid grid-cols-1 lg:grid-cols-3 divide-x divide-y border">
         <div>
           {selectedAttribute !== "default" && (
             <fieldset>
@@ -200,10 +200,10 @@ const VariationPhotos = ({ attributes, setAttributes }) => {
             />
           </label>
         </div>
-        <div className="divide-x divide-y grid grid-cols-3 justify-center items-center">
+        <div className="divide-x divide-y grid grid-cols-3">
           <label
             htmlFor="add-photos"
-            className="flex justify-center items-center"
+            className="flex justify-center items-center border-t border-l"
           >
             <span className="text-sm font-medium text-blue-800 cursor-pointer">
               + Add Photos

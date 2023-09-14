@@ -225,8 +225,21 @@ const VariationsTable = ({ attributes }) => {
     console.log(variations);
   };
 
+  useEffect(() => {
+    const details = [...document.querySelectorAll("details")];
+    document.addEventListener("click", function (e) {
+      if (!details.some((f) => f.contains(e.target))) {
+        details.forEach((f) => f.removeAttribute("open"));
+      } else {
+        details.forEach((f) =>
+          !f.contains(e.target) ? f.removeAttribute("open") : ""
+        );
+      }
+    });
+  }, []);
+
   return (
-    <div className="w-11/12 mx-auto my-8">
+    <div className="my-8">
       <h2 className="text-lg font-semibold text-gray-700 my-2 capitalize">
         {`Variation Combinations (${numVariations})`}
       </h2>
@@ -240,7 +253,7 @@ const VariationsTable = ({ attributes }) => {
             </summary>
 
             <div className="z-50 group-open:absolute shadow-lg group-open:top-auto group-open:left-0 group-open:mt-2 ltr:group-open:start-0">
-              <div className="w-60 rounded border border-gray-200 bg-white p-4">
+              <div className="w-52 rounded border border-gray-200 bg-white p-4">
                 <label
                   htmlFor="CreateYourOwn"
                   className="grid items-center gap-2"
@@ -273,7 +286,7 @@ const VariationsTable = ({ attributes }) => {
             </summary>
 
             <div className="z-50 group-open:absolute shadow-lg group-open:top-auto group-open:left-0 group-open:mt-2 ltr:group-open:start-0">
-              <div className="w-60 rounded border border-gray-200 bg-white p-4">
+              <div className="w-52 rounded border border-gray-200 bg-white p-4">
                 <label
                   htmlFor="CreateYourOwn"
                   className="grid items-center gap-2"
@@ -308,7 +321,7 @@ const VariationsTable = ({ attributes }) => {
             </summary>
 
             <div className="z-50 group-open:absolute shadow-lg group-open:top-auto group-open:left-0 group-open:mt-2 ltr:group-open:start-0">
-              <div className="w-60 rounded border border-gray-200 bg-white p-4">
+              <div className="w-52 rounded border border-gray-200 bg-white p-4">
                 <label
                   htmlFor="CreateYourOwn"
                   className="grid items-center gap-2"

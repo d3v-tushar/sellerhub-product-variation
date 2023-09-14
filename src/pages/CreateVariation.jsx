@@ -1,4 +1,5 @@
 /* eslint-disable react/prop-types */
+import { useEffect } from "react";
 import toast from "react-hot-toast";
 
 const CreateVariation = ({
@@ -37,6 +38,19 @@ const CreateVariation = ({
     updatedAttributes[attrIndex].options.splice(optionIndex, 1);
     setAttributes(updatedAttributes);
   };
+
+  useEffect(() => {
+    const details = [...document.querySelectorAll("details")];
+    document.addEventListener("click", function (e) {
+      if (!details.some((f) => f.contains(e.target))) {
+        details.forEach((f) => f.removeAttribute("open"));
+      } else {
+        details.forEach((f) =>
+          !f.contains(e.target) ? f.removeAttribute("open") : ""
+        );
+      }
+    });
+  }, []);
 
   const handleContinue = () => {
     if (Object.keys(attributes).length) setShowSelectedAttributes(true);
@@ -91,8 +105,8 @@ const CreateVariation = ({
                       </span>
                     </summary>
 
-                    <div className="z-50 group-open:absolute group-open:top-auto group-open:left-0 group-open:mt-2 ltr:group-open:start-0">
-                      <div className="w-60 rounded border border-gray-200 bg-white p-4">
+                    <div className="z-50 group-open:absolute group-open:top-auto group-open:left-0 group-open:mt-2 ltr:group-open:start-0 overflow-hidden">
+                      <div className="w-52 rounded border border-gray-200 bg-white p-4">
                         <label
                           htmlFor="CreateYourOwn"
                           className="grid items-center gap-2"
@@ -174,7 +188,7 @@ const CreateVariation = ({
                           </span>
                         </summary>
                         <div className="z-50 group-open:absolute group-open:top-auto group-open:left-0 group-open:mt-2 ltr:group-open:start-0 shadow-md">
-                          <div className="w-60 rounded border border-gray-200 bg-white p-4">
+                          <div className="w-52 rounded border border-gray-200 bg-white p-4">
                             <label
                               htmlFor={`optionInput-${index}`}
                               className="grid items-center gap-2"
